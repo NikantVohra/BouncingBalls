@@ -51,13 +51,19 @@ struct PhysicsCategory {
 class GameScene: SKScene {
 
     
+    let ball = SKShapeNode()
     
-    var ball:SKSpriteNode
+
     
     override func didMoveToView(view: SKView) {
         // 2
         
         backgroundColor = SKColor.whiteColor()
+        
+        
+        ball.lineWidth = 1
+        ball.antialiased = true
+        ball.fillColor = SKColor.redColor()
         // 3
         ball.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
         // 4
@@ -66,7 +72,5 @@ class GameScene: SKScene {
     }
     
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    
 }
