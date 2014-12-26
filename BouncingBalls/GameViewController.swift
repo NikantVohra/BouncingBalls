@@ -13,7 +13,7 @@ class GameViewController: UIViewController {
         let skView = view as SKView
        
         skView.ignoresSiblingOrder = true
-        scene.scaleMode = .ResizeFill
+        scene.scaleMode = .AspectFill
         skView.presentScene(scene)
     }
     

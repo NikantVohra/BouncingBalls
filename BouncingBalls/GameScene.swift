@@ -57,97 +57,148 @@ struct PhysicsCategory {
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-
+    let ball = SKSpriteNode(imageNamed: "ball.png");
+    let ballCategoryName = "ball"
+    let tileCategoryName = "tile"
+    var fingerIsOnBall = false
     
-    let ball = SKShapeNode(circleOfRadius: 15.0)
+    override init(size: CGSize) {
+        super.init(size: size)
+        self.physicsWorld.contactDelegate = self
+        let background = SKSpriteNode(imageNamed: "bg.png")
+        background.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
+        self.addChild(background)
+        self.physicsWorld.gravity = CGVectorMake(0.0, 0.0)
+        let borderBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
+        self.physicsBody?.friction = 0.0
+        self.physicsBody = borderBody
+        // 3 Set the friction of that physicsBody to 0
+        addBall()
+        addTile()
+        
+    }
     
-
-    
-    override func didMoveToView(view: SKView) {
+    func addBall() {
+        
+        ball.name = ballCategoryName;
+        ball.position = CGPointMake(self.frame.size.width/10, self.frame.size.height/2)
+        self.addChild(ball)
+        
         // 2
-        
-        backgroundColor = SKColor.whiteColor()
-        
-        
-        ball.lineWidth = 1
-        ball.antialiased = true
-        ball.fillColor = SKColor.redColor()
+        ball.physicsBody = SKPhysicsBody(circleOfRadius:ball.frame.size.width/2)
         // 3
-        ball.position = CGPoint(x: size.width * 0.05, y: size.height * 0.5)
+        ball.physicsBody?.friction = 0.0
         // 4
-        ball.physicsBody = SKPhysicsBody(circleOfRadius: 15.0)
-        ball.physicsBody?.dynamic = true
+        ball.physicsBody?.restitution = 1.0
+        // 5
+        ball.physicsBody?.linearDamping = 0.0
+        // 6
+        ball.physicsBody?.allowsRotation = false
+        
         ball.physicsBody?.categoryBitMask = PhysicsCategory.Ball
         ball.physicsBody?.contactTestBitMask = PhysicsCategory.Tile
-        ball.physicsBody?.collisionBitMask = PhysicsCategory.None
-        ball.physicsBody?.usesPreciseCollisionDetection = true
-
-        physicsWorld.gravity = CGVectorMake(0, 0)
-        physicsWorld.contactDelegate = self
-        addChild(ball)
-        addTile()
+        
+        
+        
 
     }
     
     func addTile() {
+        let tile = SKSpriteNode(imageNamed: "paddle")
+        tile.name = tileCategoryName
+        tile.position = CGPointMake(CGRectGetMidX(self.frame), tile.frame.size.height * 3)
+        self.addChild(tile)
+        tile.physicsBody = SKPhysicsBody(rectangleOfSize: tile.frame.size)
+        tile.physicsBody?.friction = 0.4
+        tile.physicsBody?.restitution = 0.1
+        tile.physicsBody?.dynamic = false
+        tile.physicsBody?.categoryBitMask = PhysicsCategory.Tile
         
-        // Create sprite
-        let tile = SKShapeNode(rect: CGRectMake(100, 40, 80, 40))
-        tile.fillColor = SKColor.grayColor()
+    }
+    
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        var firstBody = SKPhysicsBody()
+        var secondBody = SKPhysicsBody()
         
-        tile.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(80, 40)) // 1
-        tile.physicsBody?.dynamic = false // 2
-        tile.physicsBody?.categoryBitMask = PhysicsCategory.Tile // 3
-        tile.physicsBody?.contactTestBitMask = PhysicsCategory.Ball // 4/        
-        tile.physicsBody?.collisionBitMask = PhysicsCategory.None // 5
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+        }else{
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+        }
         
-        // Determine where to spawn the tile along the Y axis
-        //let actualY = random(min: tile.size.height/2, max: size.height - tile.size.height/2)
+        if firstBody.categoryBitMask == PhysicsCategory.Tile && secondBody.categoryBitMask == PhysicsCategory.Ball {
+            //firstBody.node?.removeFromParent()
+            //firstBody.node?.physicsBody?.velocity.dy = firstBody.node?.physicsBody
+            if true{
+                let youWinScene = GameOverScene(size: self.frame.size, won: true)
+                self.view?.presentScene(youWinScene)
+            }
+        }
         
-        // Position the tile slightly off-screen along the right edge,
-        // and along a random position along the Y axis as calculated above
-        tile.position = CGPoint(x: 100,y: 240)
+    }
+    
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        let touch = touches.anyObject() as UITouch
+        let touchLocation = touch.locationInNode(self)
         
-        // Add the tile to the scene
-        addChild(tile)
+        let body:SKPhysicsBody? = self.physicsWorld.bodyAtPoint(touchLocation)
         
-        // Determine speed of the tile
-        //let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
+        if body?.node?.name == ballCategoryName {
+            fingerIsOnBall = true
+        }
+
         
-        // Create the actions
+    }
+    
+    
+    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
+        
+        if fingerIsOnBall {
+            let touch = touches.anyObject() as UITouch
+            let touchLoc = touch.locationInNode(self)
+            let prevTouchLoc = touch.previousLocationInNode(self)
+            
+            let ball = self.childNodeWithName(ballCategoryName) as SKSpriteNode
+            
+            var newYPos = ball.position.y + (touchLoc.y - prevTouchLoc.y)
+            
+            newYPos = max(ball.size.width / 2, newYPos)
+            newYPos = min(self.size.width - ball.size.width / 2, newYPos)
+            
+            ball.position = CGPointMake(ball.position.x, newYPos)
+        }
         
     }
     
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-        // 1 - Choose one of the touches to work with
         let touch = touches.anyObject() as UITouch
         let touchLocation = touch.locationInNode(self)
         
-        // 2 - Set up initial location of projectile
-
-        
-        // 3 - Determine offset of location to projectile
-        let offset = touchLocation - ball.position
-        
-        // 4 - Bail out if you are shooting down or backwards
-        if (offset.x < 0) { return }
-        
-        // 5 - OK to add now - you've double checked position
-        
-        // 6 - Get the direction of where to shoot
-        let direction = offset.normalized()
-        
-        // 7 - Make it shoot far enough to be guaranteed off screen
-        let shootAmount = direction * 1000
-        
-        // 8 - Add the shoot amount to the current position
-        let realDest = shootAmount + ball.position
-        
-        // 9 - Create the actions
-        let actionMove = SKAction.moveTo(realDest, duration: 2.0)
-        let actionMoveDone = SKAction.removeFromParent()
-        ball.runAction(SKAction.sequence([actionMove, actionMoveDone]))
-        
+        let body:SKPhysicsBody? = self.physicsWorld.bodyAtPoint(touchLocation)
+        if body?.node?.name == ballCategoryName {
+            fingerIsOnBall = false
+        }
+            
+        else {
+            let offset = touchLocation - ball.position
+            if (offset.x < 0) { return }
+            let direction = offset.normalized()
+            let shootAmount = direction * 10
+            
+            // 8 - Add the shoot amount to the current position
+            ball.physicsBody?.applyImpulse(CGVectorMake(shootAmount.x, shootAmount.y))
+        }
     }
+    
+    
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+
     
 }
