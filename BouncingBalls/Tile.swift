@@ -11,8 +11,12 @@ import SpriteKit
 
 let tileCategoryName = "tile"
 
+
+
+
 class Tile : SKSpriteNode{
 
+    var isActive  = false
     
     func configurePhysicsBody() {
         physicsBody = SKPhysicsBody(rectangleOfSize: frame.size)
@@ -22,5 +26,8 @@ class Tile : SKSpriteNode{
         physicsBody?.categoryBitMask = PhysicsCategory.Tile
         //physicsBody?.contactTestBitMask = PhysicsCategory.Ball
     }
+    
+    
+    
     
 }

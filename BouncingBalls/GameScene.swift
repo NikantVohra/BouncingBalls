@@ -74,6 +74,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addBall()
         addTile()
         
+        let tile1 = Tile(imageNamed: "paddle")
+        tile1.configurePhysicsBody()
+        tile1.isActive = false
+        tile1.position = CGPointMake(CGRectGetMidX(self.frame), tile1.frame.size.height * 3)
+        self.addChild(tile1)
+        
+        let tile2 = Tile(imageNamed: "block")
+        tile2.configurePhysicsBody()
+        tile2.isActive = true
+        tile2.position = CGPointMake(self.frame.width/2, tile2.frame.size.height * 8)
+        self.addChild(tile2)
+        
     }
     
     func addBall() {
@@ -108,8 +120,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if firstBody.categoryBitMask == PhysicsCategory.Tile && secondBody.categoryBitMask == PhysicsCategory.Ball {
             //firstBody.node?.removeFromParent()
             //firstBody.node?.physicsBody?.velocity.dy = firstBody.node?.physicsBody
-            if false{
-                let youWinScene = GameOverScene(size: self.frame.size, won: true)
+            let collisionTile  = firstBody.node? as? Tile
+            
+            if (collisionTile?.isActive != false){
+                let youWinScene = GameOverScene(size: self.frame.size, won: false)
                 self.view?.presentScene(youWinScene)
             }
         }
