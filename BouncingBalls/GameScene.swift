@@ -51,7 +51,7 @@ struct PhysicsCategory {
 class GameScene: SKScene {
 
     
-    let ball = SKShapeNode()
+    let ball = SKShapeNode(circleOfRadius: 15.0)
     
 
     
@@ -65,7 +65,7 @@ class GameScene: SKScene {
         ball.antialiased = true
         ball.fillColor = SKColor.redColor()
         // 3
-        ball.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+        ball.position = CGPoint(x: size.width * 0.05, y: size.height * 0.5)
         // 4
         addChild(ball)
 
