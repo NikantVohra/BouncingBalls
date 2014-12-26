@@ -57,9 +57,7 @@ struct PhysicsCategory {
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    let ball = SKSpriteNode(imageNamed: "ball.png");
-    let ballCategoryName = "ball"
-    let tileCategoryName = "tile"
+    let ball = Ball(imageNamed: "ball.png")
     var fingerIsOnBall = false
     
     override init(size: CGSize) {
@@ -79,40 +77,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addBall() {
-        
-        ball.name = ballCategoryName;
         ball.position = CGPointMake(self.frame.size.width/10, self.frame.size.height/2)
+        ball.configurePhysicsBody()
         self.addChild(ball)
-        
-        // 2
-        ball.physicsBody = SKPhysicsBody(circleOfRadius:ball.frame.size.width/2)
-        // 3
-        ball.physicsBody?.friction = 0.0
-        // 4
-        ball.physicsBody?.restitution = 1.0
-        // 5
-        ball.physicsBody?.linearDamping = 0.0
-        // 6
-        ball.physicsBody?.allowsRotation = false
-        
-        ball.physicsBody?.categoryBitMask = PhysicsCategory.Ball
-        ball.physicsBody?.contactTestBitMask = PhysicsCategory.Tile
-        
-        
         
 
     }
     
     func addTile() {
-        let tile = SKSpriteNode(imageNamed: "paddle")
-        tile.name = tileCategoryName
+        let tile = Tile(imageNamed: "paddle")
+        tile.configurePhysicsBody()
         tile.position = CGPointMake(CGRectGetMidX(self.frame), tile.frame.size.height * 3)
         self.addChild(tile)
-        tile.physicsBody = SKPhysicsBody(rectangleOfSize: tile.frame.size)
-        tile.physicsBody?.friction = 0.4
-        tile.physicsBody?.restitution = 0.1
-        tile.physicsBody?.dynamic = false
-        tile.physicsBody?.categoryBitMask = PhysicsCategory.Tile
         
     }
     
@@ -132,7 +108,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if firstBody.categoryBitMask == PhysicsCategory.Tile && secondBody.categoryBitMask == PhysicsCategory.Ball {
             //firstBody.node?.removeFromParent()
             //firstBody.node?.physicsBody?.velocity.dy = firstBody.node?.physicsBody
-            if true{
+            if false{
                 let youWinScene = GameOverScene(size: self.frame.size, won: true)
                 self.view?.presentScene(youWinScene)
             }
@@ -149,7 +125,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if body?.node?.name == ballCategoryName {
             fingerIsOnBall = true
         }
-
         
     }
     
@@ -192,6 +167,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ball.physicsBody?.applyImpulse(CGVectorMake(shootAmount.x, shootAmount.y))
         }
     }
+    
+    
     
     
 

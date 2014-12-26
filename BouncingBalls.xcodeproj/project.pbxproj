@@ -21,6 +21,8 @@
 		05600C1D1A4D6EA8009E8D6D /* bg~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 05600C181A4D6EA8009E8D6D /* bg~iphone.png */; };
 		05600C1F1A4D8E09009E8D6D /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05600C1E1A4D8E09009E8D6D /* GameOverScene.swift */; };
 		05600C211A4D905D009E8D6D /* replay.png in Resources */ = {isa = PBXBuildFile; fileRef = 05600C201A4D905D009E8D6D /* replay.png */; };
+		05600C231A4D92B6009E8D6D /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05600C221A4D92B6009E8D6D /* Tile.swift */; };
+		05600C251A4D9369009E8D6D /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05600C241A4D9369009E8D6D /* Ball.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,8 @@
 		05600C181A4D6EA8009E8D6D /* bg~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg~iphone.png"; sourceTree = "<group>"; };
 		05600C1E1A4D8E09009E8D6D /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		05600C201A4D905D009E8D6D /* replay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = replay.png; sourceTree = "<group>"; };
+		05600C221A4D92B6009E8D6D /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		05600C241A4D9369009E8D6D /* Ball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,8 @@
 			children = (
 				05600BEE1A4D1861009E8D6D /* AppDelegate.swift */,
 				05600BF21A4D1861009E8D6D /* GameScene.swift */,
+				05600C221A4D92B6009E8D6D /* Tile.swift */,
+				05600C241A4D9369009E8D6D /* Ball.swift */,
 				05600C1E1A4D8E09009E8D6D /* GameOverScene.swift */,
 				05600BF41A4D1861009E8D6D /* GameViewController.swift */,
 				05600BF61A4D1861009E8D6D /* Main.storyboard */,
@@ -259,8 +265,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05600C251A4D9369009E8D6D /* Ball.swift in Sources */,
 				05600BF31A4D1861009E8D6D /* GameScene.swift in Sources */,
 				05600BF51A4D1861009E8D6D /* GameViewController.swift in Sources */,
+				05600C231A4D92B6009E8D6D /* Tile.swift in Sources */,
 				05600C1F1A4D8E09009E8D6D /* GameOverScene.swift in Sources */,
 				05600BEF1A4D1861009E8D6D /* AppDelegate.swift in Sources */,
 			);
