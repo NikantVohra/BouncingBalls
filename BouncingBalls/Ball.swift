@@ -23,6 +23,6 @@ class Ball : SKSpriteNode {
         physicsBody?.linearDamping = 0.0
         physicsBody?.allowsRotation = false
         physicsBody?.categoryBitMask = PhysicsCategory.Ball
-        physicsBody?.contactTestBitMask = PhysicsCategory.Tile
+        physicsBody?.contactTestBitMask = PhysicsCategory.Tile | PhysicsCategory.RightSide
     }
 }

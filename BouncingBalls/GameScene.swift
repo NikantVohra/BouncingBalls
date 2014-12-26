@@ -53,6 +53,7 @@ struct PhysicsCategory {
     static let All       : UInt32 = UInt32.max
     static let Tile   : UInt32 = 0b1       // 1
     static let Ball: UInt32 = 0b10      // 2
+    static let RightSide : UInt32 = 0b100
 }
 
 
@@ -86,6 +87,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         tile2.position = CGPointMake(self.frame.width/2, tile2.frame.size.height * 8)
         self.addChild(tile2)
         
+        self.configureRightWall()
+        
+    }
+    
+    func configureRightWall() {
+        let rightSideRect = CGRectMake(self.frame.size.width, self.frame.origin.y, 1, self.frame.size.height)
+        let right = SKNode()
+        right.physicsBody = SKPhysicsBody(edgeLoopFromRect: rightSideRect)
+        
+        self.addChild(right)
+        
+        right.physicsBody?.categoryBitMask = PhysicsCategory.RightSide
     }
     
     func addBall() {
@@ -103,6 +116,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(tile)
         
     }
+    
+    
     
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -126,6 +141,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let youWinScene = GameOverScene(size: self.frame.size, won: false)
                 self.view?.presentScene(youWinScene)
             }
+        }
+        
+        if firstBody.categoryBitMask == PhysicsCategory.Ball && secondBody.categoryBitMask == PhysicsCategory.RightSide {
+            //firstBody.node?.removeFromParent()
+            //firstBody.node?.physicsBody?.velocity.dy = firstBody.node?.physicsBody
+            let youWinScene = GameOverScene(size: self.frame.size, won: true)
+            self.view?.presentScene(youWinScene)
+            
         }
         
     }
