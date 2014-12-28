@@ -60,6 +60,8 @@ struct PhysicsCategory {
 class GameScene: SKScene, SKPhysicsContactDelegate {
     let ball = Ball(imageNamed: "ball.png")
     var fingerIsOnBall = false
+    var level = 1
+    var json: JSON = ""
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -73,22 +75,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsBody = borderBody
         // 3 Set the friction of that physicsBody to 0
         addBall()
-        addTile()
-        
-        let tile1 = Tile(imageNamed: "paddle")
-        tile1.configurePhysicsBody()
-        tile1.isActive = false
-        tile1.position = CGPointMake(CGRectGetMidX(self.frame), tile1.frame.size.height * 3)
-        self.addChild(tile1)
-        
-        let tile2 = Tile(imageNamed: "block")
-        tile2.configurePhysicsBody()
-        tile2.isActive = true
-        tile2.position = CGPointMake(self.frame.width/2, tile2.frame.size.height * 8)
-        self.addChild(tile2)
-        
         self.configureRightWall()
         
+        DataManager.getAppDataFromFileWithSuccess{ (data) -> Void in
+            self.json = JSON(data: data)
+            self.createLevel()
+        }
     }
     
     func configureRightWall() {
@@ -105,20 +97,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.position = CGPointMake(self.frame.size.width/10, self.frame.size.height/2)
         ball.configurePhysicsBody()
         self.addChild(ball)
-        
-
     }
     
-    func addTile() {
-        let tile = Tile(imageNamed: "paddle")
+    func addTile(x: CGFloat, y: CGFloat, height: CGFloat, width: CGFloat, active: Bool) {
+        let tile = Tile(rectOfSize: CGSizeMake(width, height))
         tile.configurePhysicsBody()
-        tile.position = CGPointMake(CGRectGetMidX(self.frame), tile.frame.size.height * 3)
-        self.addChild(tile)
+        tile.zPosition = 10
+        tile.isActive = active
+        tile.position = CGPointMake(x + 100, y + 10)
+        if (tile.isActive) {
+            tile.fillColor = SKColor.blackColor()
+        } else {
+            tile.fillColor = SKColor.grayColor()
+        }
         
+        self.addChild(tile)
     }
     
-    
-    
+    func createLevel(){
+        for (index: String, tile: JSON) in json["tiles"] {
+            let tX = tile["start"]["x"].doubleValue;
+            let tY = tile["start"]["y"].doubleValue;
+            let tHeight = tile["height"].doubleValue;
+            let tWidth = tile["width"].doubleValue;
+            let tActive = tile["active"].boolValue;
+            addTile( CGFloat(tX), y: CGFloat(tY), height: CGFloat(tHeight), width: CGFloat(tWidth), active: tActive)
+        }
+    }
     
     func didBeginContact(contact: SKPhysicsContact) {
         var firstBody = SKPhysicsBody()
@@ -127,7 +132,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
             firstBody = contact.bodyA
             secondBody = contact.bodyB
-        }else{
+        } else {
             firstBody = contact.bodyB
             secondBody = contact.bodyA
         }
@@ -137,7 +142,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //firstBody.node?.physicsBody?.velocity.dy = firstBody.node?.physicsBody
             let collisionTile  = firstBody.node? as? Tile
             
-            if (collisionTile?.isActive != false){
+            if (collisionTile?.isActive != true){
                 let youWinScene = GameOverScene(size: self.frame.size, won: false)
                 self.view?.presentScene(youWinScene)
             }
@@ -204,9 +209,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ball.physicsBody?.applyImpulse(CGVectorMake(shootAmount.x, shootAmount.y))
         }
     }
-    
-    
-    
     
 
     required init?(coder aDecoder: NSCoder) {

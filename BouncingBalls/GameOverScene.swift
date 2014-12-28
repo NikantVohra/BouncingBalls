@@ -50,6 +50,8 @@ class GameOverScene: SKScene {
         if body.name == playAgainButtonIdentifier {
             let reveal = SKTransition.flipHorizontalWithDuration(0.5)
             let scene = GameScene(size: size)
+            
+            scene.createLevel();
             self.view?.presentScene(scene, transition:reveal)
         }
         

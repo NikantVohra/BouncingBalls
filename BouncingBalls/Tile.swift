@@ -14,7 +14,7 @@ let tileCategoryName = "tile"
 
 
 
-class Tile : SKSpriteNode{
+class Tile : SKShapeNode{
 
     var isActive  = false
     
@@ -26,8 +26,4 @@ class Tile : SKSpriteNode{
         physicsBody?.categoryBitMask = PhysicsCategory.Tile
         //physicsBody?.contactTestBitMask = PhysicsCategory.Ball
     }
-    
-    
-    
-    
 }
