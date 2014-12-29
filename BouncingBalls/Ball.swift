@@ -10,9 +10,12 @@ import Foundation
 import SpriteKit
 
 let ballCategoryName = "ball"
+let ballRadius:CGFloat = 10.0
 
-class Ball : SKSpriteNode {
+class Ball : SKShapeNode {
     
+    var isFingerOnBall = false
+    var isMoving = false
     
     
     func configurePhysicsBody() {
@@ -24,5 +27,9 @@ class Ball : SKSpriteNode {
         physicsBody?.allowsRotation = false
         physicsBody?.categoryBitMask = PhysicsCategory.Ball
         physicsBody?.contactTestBitMask = PhysicsCategory.Tile | PhysicsCategory.RightSide
+    }
+    
+    func launch(direction : CGVector) {
+        physicsBody?.applyImpulse(direction)
     }
 }

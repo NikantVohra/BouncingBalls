@@ -57,30 +57,39 @@ struct PhysicsCategory {
 }
 
 
+let player = Player(name: "")
+
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    let ball = Ball(imageNamed: "ball.png")
-    var fingerIsOnBall = false
+    let ball = Ball(circleOfRadius: ballRadius)
+    
     var level = 1
     var json: JSON = ""
     
-    override init(size: CGSize) {
+    init(size: CGSize, level : Int) {
         super.init(size: size)
-        self.physicsWorld.contactDelegate = self
-        let background = SKSpriteNode(imageNamed: "bg.png")
-        background.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
-        self.addChild(background)
-        self.physicsWorld.gravity = CGVectorMake(0.0, 0.0)
-        let borderBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
-        self.physicsBody?.friction = 0.0
-        self.physicsBody = borderBody
-        // 3 Set the friction of that physicsBody to 0
+        self.backgroundColor = UIColor.whiteColor()
+
+        configurePhysicsWorld()
+        configurBorder()
         addBall()
-        self.configureRightWall()
+        configureRightWall()
         
         DataManager.getAppDataFromFileWithSuccess{ (data) -> Void in
             self.json = JSON(data: data)
-            self.createLevel()
+            self.createLevel(level)
         }
+    }
+    
+    func configurePhysicsWorld() {
+        self.physicsWorld.gravity = CGVectorMake(0.0, 0.0)
+        self.physicsWorld.contactDelegate = self
+    }
+    
+    func configurBorder() {
+        let borderBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
+        self.physicsBody?.friction = 0.0
+        self.physicsBody = borderBody
     }
     
     func configureRightWall() {
@@ -94,7 +103,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addBall() {
-        ball.position = CGPointMake(self.frame.size.width/10, self.frame.size.height/2)
+        ball.fillColor = SKColor.blackColor()
+        ball.position = CGPointMake(0, self.frame.size.height/2)
         ball.configurePhysicsBody()
         self.addChild(ball)
     }
@@ -104,7 +114,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         tile.configurePhysicsBody()
         tile.zPosition = 10
         tile.isActive = active
-        tile.position = CGPointMake(x + 100, y + 10)
+        tile.position = CGPointMake(x + width/2, y + height/2 )
         if (tile.isActive) {
             tile.fillColor = SKColor.blackColor()
         } else {
@@ -114,8 +124,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(tile)
     }
     
-    func createLevel(){
-        for (index: String, tile: JSON) in json["tiles"] {
+    func createLevel(level : Int){
+        let levelJson = json["levels"][level]
+        for (index: String, tile: JSON) in levelJson["tiles"] {
             let tX = tile["start"]["x"].doubleValue;
             let tY = tile["start"]["y"].doubleValue;
             let tHeight = tile["height"].doubleValue;
@@ -164,8 +175,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let body:SKPhysicsBody? = self.physicsWorld.bodyAtPoint(touchLocation)
         
-        if body?.node?.name == ballCategoryName {
-            fingerIsOnBall = true
+        if body?.node?.name == ballCategoryName && !ball.isMoving {
+            ball.isFingerOnBall = true
         }
         
     }
@@ -173,17 +184,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
         
-        if fingerIsOnBall {
+        if ball.isFingerOnBall {
             let touch = touches.anyObject() as UITouch
             let touchLoc = touch.locationInNode(self)
             let prevTouchLoc = touch.previousLocationInNode(self)
             
-            let ball = self.childNodeWithName(ballCategoryName) as SKSpriteNode
+            let ball = self.childNodeWithName(ballCategoryName) as SKShapeNode
             
             var newYPos = ball.position.y + (touchLoc.y - prevTouchLoc.y)
             
-            newYPos = max(ball.size.width / 2, newYPos)
-            newYPos = min(self.size.width - ball.size.width / 2, newYPos)
+            newYPos = max(ballRadius / 2, newYPos)
+            newYPos = min(self.size.width - ballRadius / 2, newYPos)
             
             ball.position = CGPointMake(ball.position.x, newYPos)
         }
@@ -195,18 +206,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let touchLocation = touch.locationInNode(self)
         
         let body:SKPhysicsBody? = self.physicsWorld.bodyAtPoint(touchLocation)
-        if body?.node?.name == ballCategoryName {
-            fingerIsOnBall = false
-        }
+        if !ball.isMoving {
+            if body?.node?.name == ballCategoryName {
+                ball.isFingerOnBall = false
+            }
             
-        else {
-            let offset = touchLocation - ball.position
-            if (offset.x < 0) { return }
-            let direction = offset.normalized()
-            let shootAmount = direction * 10
+            else {
+                let offset = touchLocation - ball.position
+                if (offset.x < 0) {
+                    return
+                }
+                ball.isMoving = true
+                let direction = offset.normalized()
+                let shootAmount = direction * 10
             
-            // 8 - Add the shoot amount to the current position
-            ball.physicsBody?.applyImpulse(CGVectorMake(shootAmount.x, shootAmount.y))
+                // 8 - Add the shoot amount to the current position
+                ball.launch(CGVectorMake(shootAmount.x, shootAmount.y))
+            }
         }
     }
     

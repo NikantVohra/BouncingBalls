@@ -11,7 +11,6 @@ import SpriteKit
 
 class GameOverScene: SKScene {
     
-    let playAgainButtonIdentifier = "playAgain"
     init(size: CGSize, won:Bool) {
         
         super.init(size: size)
@@ -33,13 +32,23 @@ class GameOverScene: SKScene {
         let playAgainButton = SKSpriteNode(imageNamed: "replay.png")
         playAgainButton.name = playAgainButtonIdentifier
         playAgainButton.zPosition = 10
-        playAgainButton.position = CGPoint(x: size.width/2, y: size.height/3)
+        playAgainButton.position = CGPoint(x: size.width/2 - 40, y: size.height/3)
+        
+        let nextLevelButton = SKSpriteNode(imageNamed: "next.png")
+        nextLevelButton.name = nextLevelButtonIdentifier
+        nextLevelButton.zPosition = 10
+        nextLevelButton.position = CGPoint(x: size.width/2 + 40, y: size.height/3)
         
         addChild(playAgainButton)
+        
+        addChild(nextLevelButton)
+        
+        
         // 4
- 
         
     }
+    
+   
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         let touch = touches.anyObject() as UITouch
@@ -49,14 +58,24 @@ class GameOverScene: SKScene {
         
         if body.name == playAgainButtonIdentifier {
             let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-            let scene = GameScene(size: size)
+            let scene = GameScene(size: size, level : 0)
             
-            scene.createLevel();
+           // scene.createLevel(0);
+            self.view?.presentScene(scene, transition:reveal)
+        }
+        
+        if body.name == nextLevelButtonIdentifier {
+            let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            println(player.description)
+            player.currentLevel = player.currentLevel + 1
+            println(player.description)
+            let scene = GameScene(size: size, level : player.currentLevel)
+            
+            // scene.createLevel(0);
             self.view?.presentScene(scene, transition:reveal)
         }
         
     }
-    
     
     
     // 6

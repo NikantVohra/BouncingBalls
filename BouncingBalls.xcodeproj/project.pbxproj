@@ -26,6 +26,9 @@
 		05600C211A4D905D009E8D6D /* replay.png in Resources */ = {isa = PBXBuildFile; fileRef = 05600C201A4D905D009E8D6D /* replay.png */; };
 		05600C231A4D92B6009E8D6D /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05600C221A4D92B6009E8D6D /* Tile.swift */; };
 		05600C251A4D9369009E8D6D /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05600C241A4D9369009E8D6D /* Ball.swift */; };
+		05FD45191A5160CD00CC7F49 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FD45181A5160CD00CC7F49 /* Player.swift */; };
+		05FD451B1A51615500CC7F49 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FD451A1A51615500CC7F49 /* Constants.swift */; };
+		05FD451F1A5165DC00CC7F49 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FD451E1A5165DC00CC7F49 /* next.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +65,9 @@
 		05600C201A4D905D009E8D6D /* replay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = replay.png; sourceTree = "<group>"; };
 		05600C221A4D92B6009E8D6D /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		05600C241A4D9369009E8D6D /* Ball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
+		05FD45181A5160CD00CC7F49 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		05FD451A1A51615500CC7F49 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		05FD451E1A5165DC00CC7F49 /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,8 @@
 				05600BEE1A4D1861009E8D6D /* AppDelegate.swift */,
 				05045E151A4EC875004D5C32 /* SwiftyJSON.swift */,
 				05600BF21A4D1861009E8D6D /* GameScene.swift */,
+				05FD45181A5160CD00CC7F49 /* Player.swift */,
+				05FD451A1A51615500CC7F49 /* Constants.swift */,
 				05045E171A4EC904004D5C32 /* level.json */,
 				05600C221A4D92B6009E8D6D /* Tile.swift */,
 				05600C241A4D9369009E8D6D /* Ball.swift */,
@@ -161,6 +169,7 @@
 				05600C201A4D905D009E8D6D /* replay.png */,
 				05600C151A4D6EA8009E8D6D /* bg@2x~ipad.png */,
 				05600C161A4D6EA8009E8D6D /* bg@2x~iphone.png */,
+				05FD451E1A5165DC00CC7F49 /* next.png */,
 				05600C171A4D6EA8009E8D6D /* bg~ipad.png */,
 				05600C181A4D6EA8009E8D6D /* bg~iphone.png */,
 			);
@@ -251,6 +260,7 @@
 				05045E181A4EC904004D5C32 /* level.json in Resources */,
 				05600BFD1A4D1861009E8D6D /* LaunchScreen.xib in Resources */,
 				05600C1B1A4D6EA8009E8D6D /* bg@2x~iphone.png in Resources */,
+				05FD451F1A5165DC00CC7F49 /* next.png in Resources */,
 				05600C1D1A4D6EA8009E8D6D /* bg~iphone.png in Resources */,
 				05600BFA1A4D1861009E8D6D /* Images.xcassets in Resources */,
 				05600C1C1A4D6EA8009E8D6D /* bg~ipad.png in Resources */,
@@ -280,8 +290,10 @@
 				05600BF31A4D1861009E8D6D /* GameScene.swift in Sources */,
 				05600BF51A4D1861009E8D6D /* GameViewController.swift in Sources */,
 				05600C231A4D92B6009E8D6D /* Tile.swift in Sources */,
+				05FD451B1A51615500CC7F49 /* Constants.swift in Sources */,
 				05600C1F1A4D8E09009E8D6D /* GameOverScene.swift in Sources */,
 				05045E161A4EC875004D5C32 /* SwiftyJSON.swift in Sources */,
+				05FD45191A5160CD00CC7F49 /* Player.swift in Sources */,
 				05600BEF1A4D1861009E8D6D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,9 +419,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BouncingBalls/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -417,9 +432,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BouncingBalls/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
