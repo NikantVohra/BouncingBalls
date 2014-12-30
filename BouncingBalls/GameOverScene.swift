@@ -32,7 +32,12 @@ class GameOverScene: SKScene {
         let playAgainButton = SKSpriteNode(imageNamed: "replay.png")
         playAgainButton.name = playAgainButtonIdentifier
         playAgainButton.zPosition = 10
-        playAgainButton.position = CGPoint(x: size.width/2 - 40, y: size.height/3)
+        if(won) {
+            playAgainButton.position = CGPoint(x: size.width/2 - 40, y: size.height/3)
+        }
+        else {
+            playAgainButton.position = CGPoint(x: size.width/2, y: size.height/3)
+        }
         
         let nextLevelButton = SKSpriteNode(imageNamed: "next.png")
         nextLevelButton.name = nextLevelButtonIdentifier
@@ -40,9 +45,9 @@ class GameOverScene: SKScene {
         nextLevelButton.position = CGPoint(x: size.width/2 + 40, y: size.height/3)
         
         addChild(playAgainButton)
-        
-        addChild(nextLevelButton)
-        
+        if(won){
+            addChild(nextLevelButton)
+        }
         
         // 4
         
@@ -58,17 +63,19 @@ class GameOverScene: SKScene {
         
         if body.name == playAgainButtonIdentifier {
             let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-            let scene = GameScene(size: size, level : 0)
-            
-           // scene.createLevel(0);
+            let scene = GameScene(size: size, level : player.currentLevel)
             self.view?.presentScene(scene, transition:reveal)
         }
         
         if body.name == nextLevelButtonIdentifier {
             let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-            println(player.description)
-            player.currentLevel = player.currentLevel + 1
-            println(player.description)
+            if(player.currentLevel + 1 == maxLevels) {
+                player.currentLevel = player.currentLevel + 1
+            }
+            else {
+                player.currentLevel = 0
+            }
+            
             let scene = GameScene(size: size, level : player.currentLevel)
             
             // scene.createLevel(0);

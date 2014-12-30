@@ -1,13 +1,15 @@
 import UIKit
 import SpriteKit
 
+let player = Player(name: "")
+
 
 class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scene = GameScene(size: view.bounds.size, level: 0)
+        let scene = GameScene(size: view.bounds.size, level: player.currentLevel)
         let skView = view as SKView
         
 //        DataManager.getAppDataFromFileWithSuccess{ (data) -> Void in
@@ -18,7 +20,7 @@ class GameViewController: UIViewController {
 //            scene.scaleMode = .AspectFill
 //            skView.presentScene(scene)
 //        }
-        scene.createLevel(0)
+        
         skView.ignoresSiblingOrder = true
         scene.scaleMode = .AspectFill
         skView.presentScene(scene)

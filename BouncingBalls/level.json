@@ -1,5 +1,16 @@
 {
     "levels":[
+              {"tiles":[{"start":{"x":124,"y":19},"height":47,"width":47,"active":false,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}},
+                        {"start":{"x":541,"y":35},"height":86,"width":86,"active":true,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}},
+                        {"start":{"x":273,"y":72},"height":86,"width":86,"active":true,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}},
+                        {"start":{"x":415,"y":98},"height":70,"width":70,"active":false,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}},
+                        {"start":{"x":169,"y":198},"height":55,"width":55,"active":true,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}},
+                        {"start":{"x":567,"y":221},"height":35,"width":35,"active":false,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}},
+                        {"start":{"x":380,"y":234},"height":97,"width":97,"active":true,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}},
+                        {"start":{"x":545,"y":291},"height":22,"width":83,"active":true,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}},
+                        {"start":{"x":110,"y":308},"height":44,"width":44,"active":false,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}},
+                        {"start":{"x":267,"y":327},"height":37,"width":37,"active":true,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}},
+                        {"start":{"x":373,"y":383},"height":37,"width":37,"active":false,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}}]},
               {
               "tiles":[
                        {

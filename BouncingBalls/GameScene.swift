@@ -57,7 +57,6 @@ struct PhysicsCategory {
 }
 
 
-let player = Player(name: "")
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -66,14 +65,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var level = 1
     var json: JSON = ""
     
+    var sceneHeight : CGFloat = 0.0
+    var sceneWidth : CGFloat = 0.0
+    
     init(size: CGSize, level : Int) {
         super.init(size: size)
+        self.sceneWidth = size.width
+        self.sceneHeight = size.height
         self.backgroundColor = UIColor.whiteColor()
 
         configurePhysicsWorld()
         configurBorder()
         addBall()
         configureRightWall()
+        addBallPositioningLine()
         
         DataManager.getAppDataFromFileWithSuccess{ (data) -> Void in
             self.json = JSON(data: data)
@@ -104,9 +109,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func addBall() {
         ball.fillColor = SKColor.blackColor()
-        ball.position = CGPointMake(0, self.frame.size.height/2)
+        ball.position = CGPointMake(20, self.frame.size.height/2)
         ball.configurePhysicsBody()
         self.addChild(ball)
+    }
+    
+    func addBallPositioningLine() {
+        let line = SKShapeNode(rect: CGRectMake(10, 0, 1, sceneHeight))
+        line.strokeColor = SKColor.blackColor()
+        line.fillColor = SKColor.blackColor()
+        line.position = CGPointMake(10, 0)
+        self.addChild(line)
     }
     
     func addTile(x: CGFloat, y: CGFloat, height: CGFloat, width: CGFloat, active: Bool) {
@@ -218,8 +231,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 ball.isMoving = true
                 let direction = offset.normalized()
-                let shootAmount = direction * 10
-            
+                let shootAmount = direction * 5
+                
                 // 8 - Add the shoot amount to the current position
                 ball.launch(CGVectorMake(shootAmount.x, shootAmount.y))
             }

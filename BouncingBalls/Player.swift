@@ -14,7 +14,8 @@ class Player {
     
     var currentLevel: Int {
         set {
-            NSUserDefaults.standardUserDefaults().setInteger(currentLevel , forKey: currentLevelIdentifier)
+            
+            NSUserDefaults.standardUserDefaults().setInteger(newValue , forKey: currentLevelIdentifier)
             
         }
         get {
@@ -30,6 +31,7 @@ class Player {
     
     init (name : String) {
         self.name = name
+        
     }
     
     

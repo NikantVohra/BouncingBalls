@@ -11,3 +11,4 @@ import Foundation
 let currentLevelIdentifier = "currentLevel"
 let playAgainButtonIdentifier = "playAgain"
 let nextLevelButtonIdentifier = "nextLevel"
+let maxLevels = 3
