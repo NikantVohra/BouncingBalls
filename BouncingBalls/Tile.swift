@@ -17,6 +17,10 @@ let tileCategoryName = "tile"
 class Tile : SKShapeNode{
 
     var isActive  = false
+
+    enum tileMovement {
+        case Static, Horizontal, Vertical
+    }
     
     func configurePhysicsBody() {
         physicsBody = SKPhysicsBody(rectangleOfSize: frame.size)

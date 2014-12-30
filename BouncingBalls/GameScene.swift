@@ -82,7 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         DataManager.getAppDataFromFileWithSuccess{ (data) -> Void in
             self.json = JSON(data: data)
-            self.createLevel(level)
+            self.createLevel(0)
         }
     }
     
@@ -145,7 +145,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let tHeight = tile["height"].doubleValue;
             let tWidth = tile["width"].doubleValue;
             let tActive = tile["active"].boolValue;
-            addTile( CGFloat(tX), y: CGFloat(tY), height: CGFloat(tHeight), width: CGFloat(tWidth), active: tActive)
+            addTile( CGFloat(tX)/800 * sceneWidth, y: CGFloat(tY)/450 * sceneHeight, height: CGFloat(tHeight)/450 * sceneHeight, width: CGFloat(tWidth)/800 * sceneWidth, active: tActive)
         }
     }
     
