@@ -11,6 +11,8 @@ import Foundation
 let currentLevelIdentifier = "currentLevel"
 let playAgainButtonIdentifier = "playAgain"
 let playButtonIdentifier = "playGame"
-
+let menuButtonIdentifier = "gotoMenu"
 let nextLevelButtonIdentifier = "nextLevel"
+let replayButtonIdentifier = "replayButton"
+
 let maxLevels = 4

@@ -16,20 +16,20 @@ class GameOverScene: SKScene {
         super.init(size: size)
         
         // 1
-        backgroundColor = SKColor.whiteColor()
+        backgroundColor = UIColor(red: 239/255.0, green: 208/255.0, blue: 112/255.0, alpha: 1)
         
         // 2
-        var message = won ? "You Won!" : "You Lose :["
+        var message = won ? "You Won!" : "Try Again"
         
         // 3
-        let label = SKLabelNode(fontNamed: "Chalkduster")
+        let label = SKLabelNode(fontNamed: "Helvetica Neue")
         label.text = message
         label.fontSize = 40
-        label.fontColor = SKColor.blackColor()
+        label.fontColor = SKColor.whiteColor()
         label.position = CGPoint(x: size.width/2, y: size.height/2)
         addChild(label)
         
-        let playAgainButton = SKSpriteNode(imageNamed: "replay.png")
+        let playAgainButton = SKSpriteNode(imageNamed: "ReplayIcon")
         playAgainButton.name = playAgainButtonIdentifier
         playAgainButton.zPosition = 10
         if(won) {

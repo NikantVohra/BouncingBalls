@@ -8,6 +8,7 @@
 
 import SpriteKit
 
+
 func + (left: CGPoint, right: CGPoint) -> CGPoint {
     return CGPoint(x: left.x + right.x, y: left.y + right.y)
 }
@@ -80,6 +81,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         configureRightWall()
         addBallPositioningLine()
         addBorder()
+        addMenuButton()
+        addReplayButton()
+        addLevelLabel()
         DataManager.getAppDataFromFileWithSuccess{ (data) -> Void in
             self.json = JSON(data: data)
             self.createLevel(level)
@@ -91,11 +95,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.contactDelegate = self
     }
     
+    func addMenuButton(){
+        let menuButton = SKSpriteNode(texture: SKTexture(imageNamed: "MenuIcon"), size: CGSizeMake(30.0,30.0))
+        menuButton.name = menuButtonIdentifier
+        menuButton.zPosition = 10
+        menuButton.position = CGPoint(x: size.width - 40, y: 40)
+        self.addChild(menuButton)
+    }
+    
+    func addReplayButton(){
+        let replayButton = SKSpriteNode(texture: SKTexture(imageNamed: "ReplayIcon"), size: CGSizeMake(35.0,35.0))
+        replayButton.name = replayButtonIdentifier
+        replayButton.zPosition = 10
+        replayButton.position = CGPoint(x: size.width - 40, y: 85)
+        self.addChild(replayButton)
+    }
+    
+    func addLevelLabel(){
+        let label = SKLabelNode(fontNamed: "Helvetica Neue")
+        label.text = String(player.currentLevel)
+        label.fontSize = 40
+        label.fontColor = SKColor.whiteColor()
+        label.position = CGPoint(x: size.width - 40, y: 115)
+        addChild(label)
+    }
+    
     func addBorder(){
         addTile(0, y: 0, height: 10, width: sceneWidth, active: true)
         addTile(0, y: sceneHeight - 10, height: 10, width: sceneWidth, active: true)
         addTile(0, y: 0, height: sceneHeight, width: 10, active: true)
-
     }
     
     func configurBorder() {
@@ -158,6 +186,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func createLevel(level : Int){
         let levelJson = json["levels"][level]
+        println(levelJson)
         for (index: String, tile: JSON) in levelJson["tiles"] {
             let tX = tile["start"]["x"].doubleValue;
             let tY = tile["start"]["y"].doubleValue;
@@ -186,16 +215,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let collisionTile  = firstBody.node? as? Tile
             
             if (collisionTile?.isActive != true){
+                let reveal = SKTransition.doorsCloseHorizontalWithDuration(0.5)
                 let youWinScene = GameOverScene(size: self.frame.size, won: false)
-                self.view?.presentScene(youWinScene)
+                self.view?.presentScene(youWinScene, transition: reveal)
             }
         }
         
         if firstBody.categoryBitMask == PhysicsCategory.Ball && secondBody.categoryBitMask == PhysicsCategory.RightSide {
             //firstBody.node?.removeFromParent()
             //firstBody.node?.physicsBody?.velocity.dy = firstBody.node?.physicsBody
+            let reveal = SKTransition.doorsCloseHorizontalWithDuration(0.5)
             let youWinScene = GameOverScene(size: self.frame.size, won: true)
-            self.view?.presentScene(youWinScene)
+            self.view?.presentScene(youWinScene, transition: reveal)
             
         }
         
@@ -249,7 +280,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 ball.isMoving = true
                 let direction = offset.normalized()
-                let shootAmount = direction * 5
+                let shootAmount = direction * 3
                 
                 // 8 - Add the shoot amount to the current position
                 ball.launch(CGVectorMake(shootAmount.x, shootAmount.y))
