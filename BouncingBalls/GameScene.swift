@@ -72,14 +72,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         super.init(size: size)
         self.sceneWidth = size.width
         self.sceneHeight = size.height
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor(red: 239/255.0, green: 208/255.0, blue: 112/255.0, alpha: 1)
 
         configurePhysicsWorld()
         configurBorder()
         addBall()
         configureRightWall()
         addBallPositioningLine()
-        
+        addBorder()
         DataManager.getAppDataFromFileWithSuccess{ (data) -> Void in
             self.json = JSON(data: data)
             self.createLevel(level)
@@ -89,6 +89,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func configurePhysicsWorld() {
         self.physicsWorld.gravity = CGVectorMake(0.0, 0.0)
         self.physicsWorld.contactDelegate = self
+    }
+    
+    func addBorder(){
+        addTile(0, y: 0, height: 10, width: sceneWidth, active: true)
+        addTile(0, y: sceneHeight - 10, height: 10, width: sceneWidth, active: true)
+        addTile(0, y: 0, height: sceneHeight, width: 10, active: true)
+
     }
     
     func configurBorder() {
@@ -108,7 +115,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addBall() {
-        ball.fillColor = SKColor.blackColor()
+        ball.fillColor = UIColor(red: 229/255.0, green: 229/255.0, blue: 229/255.0, alpha: 1)
+        ball.strokeColor = UIColor.clearColor()
         ball.position = CGPointMake(20, self.frame.size.height/2)
         ball.configurePhysicsBody()
         self.addChild(ball)
@@ -116,25 +124,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func addBallPositioningLine() {
         let line = SKShapeNode(rect: CGRectMake(10, 0, 1, sceneHeight))
-        line.strokeColor = SKColor.blackColor()
-        line.fillColor = SKColor.blackColor()
+        line.strokeColor = SKColor.clearColor()
+        line.fillColor = UIColor(red: 229/255.0, green: 229/255.0, blue: 229/255.0, alpha: 1)
         line.position = CGPointMake(10, 0)
         self.addChild(line)
     }
     
     func addTile(x: CGFloat, y: CGFloat, height: CGFloat, width: CGFloat, active: Bool) {
-        let tile = Tile(rectOfSize: CGSizeMake(width, height))
+        let tile = Tile(path: CGPathCreateWithRoundedRect(CGRectMake(x, y, width, height), 4, 4, nil), centered: true)
+        
         tile.configurePhysicsBody()
         tile.zPosition = 10
         tile.isActive = active
+        tile.strokeColor = SKColor.clearColor()
         tile.position = CGPointMake(x + width/2, y + height/2 )
         if (tile.isActive) {
-            tile.fillColor = SKColor.blackColor()
+            tile.fillColor = UIColor(red: 229/255.0, green: 229/255.0, blue: 229/255.0, alpha: 1)
         } else {
-            tile.fillColor = SKColor.grayColor()
+            tile.fillColor = UIColor(red: 80/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1)
         }
         
         self.addChild(tile)
+        let shadow = Tile(path: CGPathCreateWithRoundedRect(CGRectMake(x - 2, y - 2, width, height), 4, 4, nil), centered: true)
+        shadow.fillColor = UIColor(red: 80/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1)
+        shadow.position = CGPointMake(x + width/2 - 2, y + height/2 - 2 )
+        shadow.strokeColor = SKColor.clearColor()
+        shadow.blendMode = SKBlendMode.Alpha
+        shadow.alpha = 0.25
+        self.addChild(shadow)
+
+        
     }
     
     func createLevel(level : Int){
