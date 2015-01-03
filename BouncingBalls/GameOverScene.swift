@@ -69,7 +69,7 @@ class GameOverScene: SKScene {
         
         if body.name == nextLevelButtonIdentifier {
             let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-            if(player.currentLevel + 1 == maxLevels) {
+            if(player.currentLevel + 1 != maxLevels) {
                 player.currentLevel = player.currentLevel + 1
             }
             else {

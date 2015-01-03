@@ -82,7 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         DataManager.getAppDataFromFileWithSuccess{ (data) -> Void in
             self.json = JSON(data: data)
-            self.createLevel(0)
+            self.createLevel(level)
         }
     }
     
@@ -193,7 +193,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
     }
-    
     
     override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
         
