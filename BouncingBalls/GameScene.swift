@@ -208,18 +208,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // tile hide-show
         
         if (state == "BLINK") {
-            var hide: SKAction = SKAction.fadeOutWithDuration(0.0)
+            var hide: SKAction = SKAction.hide()
             var disable: SKAction = SKAction.runBlock({ () -> Void in
                 tile.disablePhysicsBody()
             })
             var wait: SKAction = SKAction.waitForDuration(1.5)
-            var show: SKAction = SKAction.fadeInWithDuration(0.0)
+            var show: SKAction = SKAction.unhide()
             var enable: SKAction = SKAction.runBlock({ () -> Void in
                 tile.configurePhysicsBody()
             })
             var blink: SKAction = SKAction.sequence([wait, disable, hide, wait, show, enable])
-            tile.runAction(SKAction.repeatActionForever(blink))
             shadow.runAction(SKAction.repeatActionForever(blink))
+            tile.runAction(SKAction.repeatActionForever(blink))
         }
     }
     
