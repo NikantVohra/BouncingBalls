@@ -24,12 +24,29 @@ class GameSelectLevelScene : SKScene {
     func addLevelLabel(x:CGFloat, y:CGFloat, level : Int){
         let label = SKLabelNode(fontNamed: "Helvetica Neue")
         label.text = String(level)
+        label.name = "Level " + String(level)
         label.fontSize = 40
         label.fontColor = SKColor.whiteColor()
         label.position = CGPoint(x: x, y: y)
         addChild(label)
     }
     
+    
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        let touch = touches.anyObject() as UITouch
+        let touchLocation = touch.locationInNode(self)
+        
+        let body:SKNode = self.nodeAtPoint(touchLocation)
+        
+        if (body.name?.hasPrefix("Level") != nil) {
+            let reveal = SKTransition.doorsOpenHorizontalWithDuration(0.5)
+            var levelNumber:Int? = body.name?.componentsSeparatedByString(" ")[1].toInt()
+            let scene = GameScene(size: size, level : levelNumber!)
+            self.view?.presentScene(scene, transition:reveal)
+        }
+
+        
+    }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -27,9 +27,6 @@ class GameLaunchScene: SKScene {
     }
     
     
-
-    
-    
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         let touch = touches.anyObject() as UITouch
         let touchLocation = touch.locationInNode(self)
