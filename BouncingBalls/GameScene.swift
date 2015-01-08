@@ -248,6 +248,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if body.name == ballCategoryName && !ball.isMoving {
             ball.isFingerOnBall = true
         }
+        else if body.name == replayButtonIdentifier {
+            let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            let scene = GameScene(size: size, level : player.currentLevel)
+            self.view?.presentScene(scene, transition:reveal)
+        }
+        else if body.name == menuButtonIdentifier {
+            let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            let scene = GameSelectLevelScene(size: size)
+            self.view?.presentScene(scene, transition:reveal)
+        }
         
     }
     
