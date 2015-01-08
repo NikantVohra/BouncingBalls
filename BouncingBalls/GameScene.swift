@@ -74,7 +74,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.sceneWidth = size.width
         self.sceneHeight = size.height
         self.backgroundColor = UIColor(red: 239/255.0, green: 208/255.0, blue: 112/255.0, alpha: 1)
-
+        configureScene()
+        createLevelJSON(level)
+    }
+    
+    func createLevelJSON(level : Int) {
+        DataManager.getAppDataFromFileWithSuccess{ (data) -> Void in
+            self.json = JSON(data: data)
+            self.createLevel(level)
+        }
+    }
+    
+    func configureScene() {
         configurePhysicsWorld()
         configurBorder()
         addBall()
@@ -84,10 +95,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addMenuButton()
         addReplayButton()
         addLevelLabel()
-        DataManager.getAppDataFromFileWithSuccess{ (data) -> Void in
-            self.json = JSON(data: data)
-            self.createLevel(level)
-        }
     }
     
     func configurePhysicsWorld() {
@@ -236,9 +243,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let touch = touches.anyObject() as UITouch
         let touchLocation = touch.locationInNode(self)
         
-        let body:SKPhysicsBody? = self.physicsWorld.bodyAtPoint(touchLocation)
-        
-        if body?.node?.name == ballCategoryName && !ball.isMoving {
+        //let body:SKPhysicsBody? = self.physicsWorld.bodyAtPoint(touchLocation)
+        let body:SKNode = self.nodeAtPoint(touchLocation)
+        if body.name == ballCategoryName && !ball.isMoving {
             ball.isFingerOnBall = true
         }
         
@@ -267,9 +274,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let touch = touches.anyObject() as UITouch
         let touchLocation = touch.locationInNode(self)
         
-        let body:SKPhysicsBody? = self.physicsWorld.bodyAtPoint(touchLocation)
+       let body:SKNode = self.nodeAtPoint(touchLocation)
         if !ball.isMoving {
-            if body?.node?.name == ballCategoryName {
+            if body.name == ballCategoryName || ball.isFingerOnBall{
                 ball.isFingerOnBall = false
             }
             
@@ -280,7 +287,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 ball.isMoving = true
                 let direction = offset.normalized()
-                let shootAmount = direction * 3
+                let shootAmount = direction * 4
                 
                 // 8 - Add the shoot amount to the current position
                 ball.launch(CGVectorMake(shootAmount.x, shootAmount.y))
