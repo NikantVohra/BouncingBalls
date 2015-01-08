@@ -29,7 +29,7 @@ class GameOverScene: SKScene {
         label.position = CGPoint(x: size.width/2, y: size.height/2)
         addChild(label)
         
-        let playAgainButton = SKSpriteNode(imageNamed: "ReplayIcon")
+        let playAgainButton = SKSpriteNode(texture: SKTexture(imageNamed: "ReplayIcon"), size: CGSizeMake(40.0,40.0))
         playAgainButton.name = playAgainButtonIdentifier
         playAgainButton.zPosition = 10
         if(won) {
@@ -39,7 +39,7 @@ class GameOverScene: SKScene {
             playAgainButton.position = CGPoint(x: size.width/2, y: size.height/3)
         }
         
-        let nextLevelButton = SKSpriteNode(imageNamed: "next.png")
+        let nextLevelButton = SKSpriteNode(texture: SKTexture(imageNamed: "NextIcon"), size: CGSizeMake(30.0,30.0))
         nextLevelButton.name = nextLevelButtonIdentifier
         nextLevelButton.zPosition = 10
         nextLevelButton.position = CGPoint(x: size.width/2 + 40, y: size.height/3)

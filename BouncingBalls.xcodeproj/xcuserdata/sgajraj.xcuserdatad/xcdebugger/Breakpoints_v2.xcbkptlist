@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "441999155.196326"
+            timestampString = "442421420.613309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "init(size:level:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "441999155.196326"
+            timestampString = "442421420.613309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "configureRightWall()"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "addBorder()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -162,47 +162,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "441999155.196326"
+            timestampString = "442421420.613309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "init(size:level:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "441999155.196326"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "init(size:level:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "441999155.196326"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "init(size:level:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -214,12 +182,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "441999757.738125"
+            timestampString = "442421420.613309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
-            landmarkName = "createLevel(_:)"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "GameScene"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BouncingBalls/GameScene.swift"
+            timestampString = "442421420.613309"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "configureScene()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -230,12 +214,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "441999757.738125"
+            timestampString = "442421420.613309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
-            landmarkName = "createLevel(_:)"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "addTile(_:y:height:width:active:state:sX:sY:eX:eY:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BouncingBalls/GameScene.swift"
+            timestampString = "442421420.613309"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
+            landmarkName = "addTile(_:y:height:width:active:state:sX:sY:eX:eY:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

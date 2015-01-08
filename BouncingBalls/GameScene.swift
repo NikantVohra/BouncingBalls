@@ -68,6 +68,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var sceneHeight : CGFloat = 0.0
     var sceneWidth : CGFloat = 0.0
+    var scale : CGFloat = 1.0
     
     init(size: CGSize, level : Int) {
         super.init(size: size)
@@ -95,6 +96,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addMenuButton()
         addReplayButton()
         addLevelLabel()
+    }
+    
+    func addMovingTile() {
+        
     }
     
     func configurePhysicsWorld() {
@@ -128,9 +133,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addBorder(){
-        addTile(0, y: 0, height: 10, width: sceneWidth, active: true)
-        addTile(0, y: sceneHeight - 10, height: 10, width: sceneWidth, active: true)
-        addTile(0, y: 0, height: sceneHeight, width: 10, active: true)
+        addTile(0, y: 0, height: 10, width: sceneWidth, active: true, state: "STATIC", sX: 0, sY: 0, eX: 0, eY: 0)
+        addTile(0, y: sceneHeight - 10, height: 10, width: sceneWidth, active: true, state: "STATIC", sX: 0, sY: 0, eX: 0, eY: 0)
+        addTile(0, y: 0, height: sceneHeight, width: 20, active: true, state: "STATIC", sX: 0, sY: 0, eX: 0, eY: 0)
     }
     
     func configurBorder() {
@@ -143,9 +148,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let rightSideRect = CGRectMake(self.frame.size.width, self.frame.origin.y, 1, self.frame.size.height)
         let right = SKNode()
         right.physicsBody = SKPhysicsBody(edgeLoopFromRect: rightSideRect)
-        
         self.addChild(right)
-        
         right.physicsBody?.categoryBitMask = PhysicsCategory.RightSide
     }
     
@@ -165,7 +168,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(line)
     }
     
-    func addTile(x: CGFloat, y: CGFloat, height: CGFloat, width: CGFloat, active: Bool) {
+    func addTile(x: CGFloat, y: CGFloat, height: CGFloat, width: CGFloat, active: Bool, state: String, sX: CGFloat, sY: CGFloat, eX: CGFloat, eY: CGFloat) {
         let tile = Tile(path: CGPathCreateWithRoundedRect(CGRectMake(x, y, width, height), 4, 4, nil), centered: true)
         
         tile.configurePhysicsBody()
@@ -186,21 +189,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shadow.strokeColor = SKColor.clearColor()
         shadow.blendMode = SKBlendMode.Alpha
         shadow.alpha = 0.25
-        self.addChild(shadow)
-
         
+        self.addChild(shadow)
+        
+        // tile movement 
+        
+        if (state != "STATIC" ) {
+            var path: CGMutablePathRef = CGPathCreateMutable()
+            CGPathMoveToPoint(path, nil, 0, 0) // From point x , y
+            CGPathAddLineToPoint(path, nil, eX-sX, eY-sY); // To Point x, y
+            var followline: SKAction = SKAction.followPath(path, asOffset: true, orientToPath: false, duration: 1.0)
+            var reversedline: SKAction = followline.reversedAction()
+            var oscillate: SKAction = SKAction.sequence([followline,reversedline])
+            tile.runAction(SKAction.repeatActionForever(oscillate))
+            shadow.runAction(SKAction.repeatActionForever(oscillate))
+        }
     }
     
     func createLevel(level : Int){
         let levelJson = json["levels"][level]
         println(levelJson)
         for (index: String, tile: JSON) in levelJson["tiles"] {
-            let tX = tile["start"]["x"].doubleValue;
-            let tY = tile["start"]["y"].doubleValue;
-            let tHeight = tile["height"].doubleValue;
-            let tWidth = tile["width"].doubleValue;
-            let tActive = tile["active"].boolValue;
-            addTile( CGFloat(tX)/800 * sceneWidth, y: CGFloat(tY)/450 * sceneHeight, height: CGFloat(tHeight)/450 * sceneHeight, width: CGFloat(tWidth)/800 * sceneWidth, active: tActive)
+            let tX = tile["start"]["x"].doubleValue
+            let tY = tile["start"]["y"].doubleValue
+            let tHeight = tile["height"].doubleValue
+            let tWidth = tile["width"].doubleValue
+            let tActive = tile["active"].boolValue
+            let tState = tile["move"].stringValue
+            let sX = tile["movingFrom"]["x"].doubleValue
+            let sY = tile["movingFrom"]["y"].doubleValue
+            let eX = tile["movingTo"]["x"].doubleValue
+            let eY = tile["movingTo"]["y"].doubleValue
+            addTile(CGFloat(tX)/800 * sceneWidth, y: CGFloat(tY)/450 * sceneHeight, height: CGFloat(tHeight)/450 * sceneHeight, width: CGFloat(tWidth)/800 * sceneWidth, active: tActive, state: tState, sX: CGFloat(sX), sY: CGFloat(sY), eX: CGFloat(eX), eY: CGFloat(eY))
         }
     }
     
@@ -257,6 +277,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let reveal = SKTransition.flipHorizontalWithDuration(0.5)
             let scene = GameSelectLevelScene(size: size)
             self.view?.presentScene(scene, transition:reveal)
+        }
+        
+        let button:SKNode = self.nodeAtPoint(touchLocation)
+        
+        if button.name == replayButtonIdentifier {
+            //let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            let scene = GameScene(size: size, level : player.currentLevel)
+            self.view?.presentScene(scene, transition:nil)
         }
         
     }
