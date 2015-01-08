@@ -230,11 +230,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "442421420.613309"
+            timestampString = "442440476.616694"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
             landmarkName = "addTile(_:y:height:width:active:state:sX:sY:eX:eY:)"
             landmarkType = "5">
          </BreakpointContent>

@@ -204,6 +204,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             tile.runAction(SKAction.repeatActionForever(oscillate))
             shadow.runAction(SKAction.repeatActionForever(oscillate))
         }
+        
+        // tile hide-show
+        
+        if (state == "BLINK") {
+            var hide: SKAction = SKAction.fadeOutWithDuration(0.0)
+            var disable: SKAction = SKAction.runBlock({ () -> Void in
+                tile.disablePhysicsBody()
+            })
+            var wait: SKAction = SKAction.waitForDuration(1.5)
+            var show: SKAction = SKAction.fadeInWithDuration(0.0)
+            var enable: SKAction = SKAction.runBlock({ () -> Void in
+                tile.configurePhysicsBody()
+            })
+            var blink: SKAction = SKAction.sequence([wait, disable, hide, wait, show, enable])
+            tile.runAction(SKAction.repeatActionForever(blink))
+            shadow.runAction(SKAction.repeatActionForever(blink))
+        }
     }
     
     func createLevel(level : Int){

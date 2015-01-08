@@ -30,4 +30,8 @@ class Tile : SKShapeNode{
         physicsBody?.categoryBitMask = PhysicsCategory.Tile
         //physicsBody?.contactTestBitMask = PhysicsCategory.Ball
     }
+    
+    func disablePhysicsBody() {
+        physicsBody?.categoryBitMask = 0x0
+    }
 }

@@ -1,6 +1,6 @@
 {
     "levels":[
-              {"tiles":[{"start":{"x":124,"y":19},"height":47,"width":47,"active":false,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}},
+              {"tiles":[{"start":{"x":124,"y":19},"height":47,"width":47,"active":false,"move":"DYNAMIC","movingFrom":{"x":124,"y":19},"movingTo":{"x":144,"y":49}},
                         {"start":{"x":541,"y":35},"height":86,"width":86,"active":true,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}},
                         {"start":{"x":273,"y":72},"height":86,"width":86,"active":true,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}},
                         {"start":{"x":415,"y":98},"height":70,"width":70,"active":false,"move":"STATIC","movingFrom":{"x":0,"y":0},"movingTo":{"x":0,"y":0}},
@@ -57,7 +57,7 @@
                        "height":70,
                        "width":70,
                        "active":false,
-                       "move":"STATIC",
+                       "move":"BLINK",
                        "movingFrom":{
                        "x":0,
                        "y":0
@@ -75,7 +75,7 @@
                        "height":55,
                        "width":55,
                        "active":true,
-                       "move":"STATIC",
+                       "move":"BLINK",
                        "movingFrom":{
                        "x":0,
                        "y":0
