@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "442387027.018276"
+            timestampString = "442652216.625777"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "addBorder()"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "442387027.018276"
+            timestampString = "442652216.625777"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "configureRightWall()"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "442387027.018276"
+            timestampString = "442652216.625777"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "addTile(_:y:height:width:active:state:sX:sY:eX:eY:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "442387027.018276"
+            timestampString = "442652216.625777"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
             landmarkName = "addBallPositioningLine()"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "442387027.018276"
+            timestampString = "442652216.625777"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
             landmarkName = "addTile(_:y:height:width:active:state:sX:sY:eX:eY:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "442387027.018276"
+            timestampString = "442652216.625777"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
             landmarkName = "createLevel(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "442389037.357724"
+            timestampString = "442652216.625777"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
             landmarkName = "didBeginContact(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "442389037.357724"
+            timestampString = "442653343.349429"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
+            startingLineNumber = "314"
+            endingLineNumber = "314"
             landmarkName = "touchesBegan(_:withEvent:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "442387027.018276"
+            timestampString = "442652216.625777"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
             landmarkName = "didBeginContact(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BouncingBalls/GameScene.swift"
-            timestampString = "442389037.357724"
+            timestampString = "442653343.349429"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
             landmarkName = "didBeginContact(_:)"
             landmarkType = "5">
          </BreakpointContent>

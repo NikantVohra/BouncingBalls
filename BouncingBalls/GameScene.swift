@@ -7,6 +7,31 @@
 //
 
 import SpriteKit
+import AVFoundation
+
+var backgroundMusicPlayer: AVAudioPlayer!
+
+func playBackgroundMusic(filename: String) {
+    let url = NSBundle.mainBundle().URLForResource(
+        filename, withExtension: nil)
+    if (url == nil) {
+        println("Could not find file: \(filename)")
+        return
+    }
+    
+    var error: NSError? = nil
+    backgroundMusicPlayer =
+        AVAudioPlayer(contentsOfURL: url, error: &error)
+    if backgroundMusicPlayer == nil {
+        println("Could not create audio player: \(error!)")
+        return
+    }
+    
+    backgroundMusicPlayer.numberOfLoops = -1
+    backgroundMusicPlayer.prepareToPlay()
+    backgroundMusicPlayer.play()
+}
+
 
 
 func + (left: CGPoint, right: CGPoint) -> CGPoint {
@@ -77,6 +102,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.backgroundColor = UIColor(red: 239/255.0, green: 208/255.0, blue: 112/255.0, alpha: 1)
         configureScene()
         createLevelJSON(level)
+      //  playBackgroundMusic("background-music.wav")
     }
     
     func createLevelJSON(level : Int) {
@@ -85,6 +111,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.createLevel(level)
         }
     }
+    
+    
     
     func configureScene() {
         configurePhysicsWorld()
@@ -263,6 +291,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let youWinScene = GameOverScene(size: self.frame.size, won: false)
                 self.view?.presentScene(youWinScene, transition: reveal)
             }
+            runAction(SKAction.playSoundFileNamed("bounce.mp3", waitForCompletion: false))
+            
         }
         
         if firstBody.categoryBitMask == PhysicsCategory.Ball && secondBody.categoryBitMask == PhysicsCategory.RightSide {
