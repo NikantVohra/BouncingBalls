@@ -15,4 +15,4 @@ let menuButtonIdentifier = "gotoMenu"
 let nextLevelButtonIdentifier = "nextLevel"
 let replayButtonIdentifier = "replayButton"
 
-let maxLevels = 4
+let maxLevels = 10

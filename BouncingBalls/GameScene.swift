@@ -224,7 +224,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createLevel(level : Int){
-        let levelJson = json["levels"][level]
+        let levelJson = json["screens"][level]
         println(levelJson)
         for (index: String, tile: JSON) in levelJson["tiles"] {
             let tX = tile["start"]["x"].doubleValue
