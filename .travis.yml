@@ -1,22 +1,27 @@
 language: objective-c
-osx_image: xcode611  # we're telling travis to use xcode 6.1.1 and cocoapods 0.35.0
+osx_image: xcode611
 branches:
   only:
-    - testflight  # only execute on our testflight branch
+  - testflight
 before_install:
 - chmod +x scripts/travis/add-key.sh
 - chmod +x scripts/travis/remove-key.sh
 - chmod +x scripts/travis/testflight.sh
 before_script:
-- "./scripts/travis/add-key.sh"
+- ./scripts/travis/add-key.sh
 script:
-- xctool -workspace BouncingBalls.xcworkspace -scheme TARGET_STAGING -configuration "Release" CONFIGURATION_BUILD_DIR='~/build/' build
-- xctool -workspace BouncingBalls.xcworkspace -scheme TARGET_RELEASE -configuration "Release" CONFIGURATION_BUILD_DIR='~/build/' build
+- xctool -workspace BouncingBalls.xcworkspace -scheme BouncingBalls -configuration
+  "Release" CONFIGURATION_BUILD_DIR='~/build/' build
+- xctool -workspace BouncingBalls.xcworkspace -scheme BouncingBalls -configuration
+  "Release" CONFIGURATION_BUILD_DIR='~/build/' build
 after_script:
-- "./scripts/travis/remove-key.sh"
+- ./scripts/travis/remove-key.sh
 after_success:
-- "./scripts/travis/testflight.sh TARGET_STAGING"
-- "./scripts/travis/testflight.sh TARGET_RELEASE"
+- ./scripts/travis/testflight.sh BouncingBalls
+- ./scripts/travis/testflight.sh BouncingBalls
 env:
   global:
   - RELEASE_NOTES="Bug fixes and Add a new feature"
+  - secure: NmViMx4DcBVgtKSY3A1JVqbV9TliQEzs9s1rMlx78Bl4ggxaTc43r37eINPNkHK+6WX+6xWKE0HZqEiHBKjSbGvKvQIiOCljsD1hVCDsWqzC/AkJevigsULxcJoG/nuf1LHfqMoBtFvVZb54llBB61sxWDS3QfEDpbLiz/Lu3jI=
+  - secure: ERMZ+4Xl5wwx33ipVc0M2tOyj14cPhVZ/1Yr1fXXCGd6zcKA9+s7BXRH+jjYs7e4OApuLHSM2Am7/n6bdiuRiqhlJsohfRCpweToYrtLDMWPwKTo4LurqW2zn4p62aBFb9FQEhRdJZ99r14Lj2vD0KHZDNkaw4C9QBa0626bjZ8=
+  - secure: Jthla4EdXUBKyOzDG8v+rOrwYooLSuuHO7DM38W7vHQqiLSxoArApMrA/Q7eAjuW0ral27DHkI1OoupWS3xXFpTea9rVXUJb5nQBxEoGp/VfV6f1fnTg/8XzM6VP9NK22CaG+R0f2s2ToPdcWwZLStQIhX7EUJ3ukA8sgVaEFRs=
