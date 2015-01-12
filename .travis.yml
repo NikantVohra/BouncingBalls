@@ -1,0 +1,22 @@
+language: objective-c
+osx_image: xcode611  # we're telling travis to use xcode 6.1.1 and cocoapods 0.35.0
+branches:
+  only:
+    - testflight  # only execute on our testflight branch
+before_install:
+- chmod +x scripts/travis/add-key.sh
+- chmod +x scripts/travis/remove-key.sh
+- chmod +x scripts/travis/testflight.sh
+before_script:
+- "./scripts/travis/add-key.sh"
+script:
+- xctool -workspace BouncingBalls.xcworkspace -scheme TARGET_STAGING -configuration "Release" CONFIGURATION_BUILD_DIR='~/build/' build
+- xctool -workspace BouncingBalls.xcworkspace -scheme TARGET_RELEASE -configuration "Release" CONFIGURATION_BUILD_DIR='~/build/' build
+after_script:
+- "./scripts/travis/remove-key.sh"
+after_success:
+- "./scripts/travis/testflight.sh TARGET_STAGING"
+- "./scripts/travis/testflight.sh TARGET_RELEASE"
+env:
+  global:
+  - RELEASE_NOTES="Bug fixes and Add a new feature"

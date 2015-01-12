@@ -1,0 +1,13 @@
+PODS:
+  - Google-Mobile-Ads-SDK (6.12.2)
+  - WSCoachMarksView (0.2)
+
+DEPENDENCIES:
+  - Google-Mobile-Ads-SDK (~> 6.10)
+  - WSCoachMarksView (~> 0.2)
+
+SPEC CHECKSUMS:
+  Google-Mobile-Ads-SDK: 9761186eb5dc5e1493e71dcce2b525159f763d42
+  WSCoachMarksView: 77046a7df4ec38acb81edfacc717e5275f97a363
+
+COCOAPODS: 0.35.0
