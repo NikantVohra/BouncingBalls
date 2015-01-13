@@ -83,10 +83,8 @@ struct PhysicsCategory {
 }
 
 
-
-
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    let ball = Ball(circleOfRadius: ballRadius)
+    let ball = Ball(radius: 10.0, position: CGPoint(x: 0, y: 100))
     
     var level = 1
     var json: JSON = ""
@@ -111,8 +109,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.createLevel(level)
         }
     }
-    
-    
     
     func configureScene() {
         configurePhysicsWorld()
@@ -163,7 +159,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addBorder(){
         addTile(0, y: 0, height: 10, width: sceneWidth, active: true, state: "STATIC", sX: 0, sY: 0, eX: 0, eY: 0)
         addTile(0, y: sceneHeight - 10, height: 10, width: sceneWidth, active: true, state: "STATIC", sX: 0, sY: 0, eX: 0, eY: 0)
-        addTile(0, y: 0, height: sceneHeight, width: 20, active: true, state: "STATIC", sX: 0, sY: 0, eX: 0, eY: 0)
+        //addTile(0, y: 0, height: sceneHeight, width: 20, active: true, state: "STATIC", sX: 0, sY: 0, eX: 0, eY: 0)
     }
     
     func configurBorder() {
@@ -314,6 +310,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let body:SKNode = self.nodeAtPoint(touchLocation)
         if body.name == ballCategoryName && !ball.isMoving {
             ball.isFingerOnBall = true
+            ball.radius = Double(20)
         }
         else if body.name == replayButtonIdentifier {
             let reveal = SKTransition.flipHorizontalWithDuration(0.5)
@@ -363,6 +360,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if !ball.isMoving {
             if body.name == ballCategoryName || ball.isFingerOnBall{
                 ball.isFingerOnBall = false
+                ball.radius = Double(10)
             }
             
             else {
